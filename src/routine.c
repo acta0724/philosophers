@@ -6,7 +6,7 @@
 /*   By: iwasakatsuya <iwasakatsuya@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 00:09:35 by iwasakatsuy       #+#    #+#             */
-/*   Updated: 2025/04/17 00:10:03 by iwasakatsuy      ###   ########.fr       */
+/*   Updated: 2025/04/17 01:56:53 by iwasakatsuy      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,8 @@ static void	eat(t_philo *philo)
 
 	rules = philo->rules;
 	take_forks(philo);
-	pthread_mutex_lock(&(rules->print_lock));
 	philo->last_eat_time = get_timestamp();
 	print_action(rules, philo->id, "is eating");
-	pthread_mutex_unlock(&(rules->print_lock));
 	smart_sleep(rules->time_to_eat, rules);
 	philo->eat_count++;
 	pthread_mutex_unlock(&(rules->forks[philo->id - 1]));

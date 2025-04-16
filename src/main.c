@@ -6,7 +6,7 @@
 /*   By: iwasakatsuya <iwasakatsuya@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 23:27:20 by kiwasa            #+#    #+#             */
-/*   Updated: 2025/04/17 00:08:34 by iwasakatsuy      ###   ########.fr       */
+/*   Updated: 2025/04/17 01:42:23 by iwasakatsuy      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	if (init_all(argc, argv, &rules, &philos))
-		return ((1));
+		return (1);
 	if (create_threads(&rules, philos))
-		return ((1));
+		return (1);
 	destroy_all(&rules, philos);
 	return (0);
 }
