@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwasakatsuya <iwasakatsuya@student.42.f    +#+  +:+       +#+        */
+/*   By: kiwasa <kiwasa@student.42.jp>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 00:07:42 by iwasakatsuy       #+#    #+#             */
-/*   Updated: 2025/04/17 01:55:56 by iwasakatsuy      ###   ########.fr       */
+/*   Updated: 2025/04/17 02:30:28 by kiwasa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ static int	ft_atoi(const char *str)
 
 static int	parse_args(int argc, char **argv, t_rules *rules)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 1;
 	while (i < argc)
@@ -58,8 +58,8 @@ static int	parse_args(int argc, char **argv, t_rules *rules)
 	rules->must_eat_count = -1;
 	if (argc == 6)
 		rules->must_eat_count = ft_atoi(argv[5]);
-	if (rules->num_philo <= 0 || rules->time_to_die < 0 ||
-		rules->time_to_eat < 0 || rules->time_to_sleep < 0 ||
+	if (rules->num_philo <= 0 || rules->time_to_die < 0 || \
+		rules->time_to_eat < 0 || rules->time_to_sleep < 0 || \
 		(argc == 6 && rules->must_eat_count <= 0))
 		return (1);
 	return (0);

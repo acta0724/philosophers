@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwasakatsuya <iwasakatsuya@student.42.f    +#+  +:+       +#+        */
+/*   By: kiwasa <kiwasa@student.42.jp>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 00:10:18 by iwasakatsuy       #+#    #+#             */
-/*   Updated: 2025/04/17 01:33:44 by iwasakatsuy      ###   ########.fr       */
+/*   Updated: 2025/04/17 02:34:15 by kiwasa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ static void	*monitor_death(void *arg)
 		while (i < rules->num_philo && !rules->died)
 		{
 			pthread_mutex_lock(&(rules->print_lock));
-			if (get_timestamp() - philos[i].last_eat_time >
-			    rules->time_to_die)
+			if (get_timestamp() - philos[i].last_eat_time > \
+				rules->time_to_die)
 			{
 				rules->died = 1;
-				printf("%lld %d died\n",
-				get_timestamp() - rules->start_time, philos[i].id);
+				printf("%lld %d died\n", \
+					get_timestamp() - rules->start_time, philos[i].id);
 			}
 			pthread_mutex_unlock(&(rules->print_lock));
 			i++;
@@ -75,7 +75,7 @@ int	create_threads(t_rules *rules, t_philo *philos)
 	i = 0;
 	while (i < rules->num_philo)
 	{
-		if (pthread_create(&(philos[i].thread_id), NULL,
+		if (pthread_create(&(philos[i].thread_id), NULL, \
 			philo_routine, &(philos[i])) != 0)
 			return (1);
 		i++;

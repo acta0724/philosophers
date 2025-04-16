@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwasakatsuya <iwasakatsuya@student.42.f    +#+  +:+       +#+        */
+/*   By: kiwasa <kiwasa@student.42.jp>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 00:09:35 by iwasakatsuy       #+#    #+#             */
-/*   Updated: 2025/04/17 01:56:53 by iwasakatsuy      ###   ########.fr       */
+/*   Updated: 2025/04/17 02:33:55 by kiwasa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ void	*philo_routine(void *arg)
 	while (!(rules->died))
 	{
 		eat(philo);
-		if (rules->must_eat_count > 0 &&
-		    philo->eat_count >= rules->must_eat_count)
+		if (rules->must_eat_count > 0 && \
+			philo->eat_count >= rules->must_eat_count)
 			break ;
 		philo_sleep(philo);
 		think(philo);
