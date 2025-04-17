@@ -6,7 +6,7 @@
 #    By: iwasakatsuya <iwasakatsuya@student.42.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/17 00:02:10 by iwasakatsuy       #+#    #+#              #
-#    Updated: 2025/04/17 00:05:28 by iwasakatsuy      ###   ########.fr        #
+#    Updated: 2025/04/18 03:10:27 by iwasakatsuy      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,8 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-%.o: %.c include/philo.h
-	$(CC) $(CFLAGS) -I include -c $< -o $@
+%.o: %.c inc/philo.h
+	$(CC) $(CFLAGS) -I inc -c $< -o $@
 
 clean:
 	rm -f $(OBJS)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kiwasa <kiwasa@student.42.jp>              +#+  +:+       +#+        */
+/*   By: iwasakatsuya <iwasakatsuya@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 00:07:42 by iwasakatsuy       #+#    #+#             */
-/*   Updated: 2025/04/17 02:30:28 by kiwasa           ###   ########.fr       */
+/*   Updated: 2025/04/18 08:03:52 by iwasakatsuy      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,10 @@ int	init_all(int argc, char **argv, t_rules *rules, t_philo **philos)
 		i++;
 	}
 	pthread_mutex_init(&(rules->print_lock), NULL);
+	pthread_mutex_init(&(rules->finish_lock), NULL);
+	pthread_mutex_init(&(rules->death_lock), NULL);
+	pthread_mutex_init(&(rules->last_eat_lock), NULL);
+	pthread_mutex_init(&(rules->eat_count_lock), NULL);
 	*philos = malloc(sizeof(t_philo) * rules->num_philo);
 	if (!(*philos))
 		return (1);
@@ -95,10 +99,14 @@ int	init_all(int argc, char **argv, t_rules *rules, t_philo **philos)
 		(*philos)[i].eat_count = 0;
 		(*philos)[i].last_eat_time = 0;
 		(*philos)[i].rules = rules;
+		(*philos)[i].finished = 0;
+		(*philos)[i].left_fork = i;
+		(*philos)[i].right_fork = (i + 1) % rules->num_philo;
 		i++;
 	}
-	rules->start_time = get_timestamp();
-	return ((0));
+	rules->start_time = 0;
+	// rules->start_time = get_timestamp();
+	return (0);
 }
 
 long long	get_timestamp(void)
@@ -114,10 +122,44 @@ void	smart_sleep(long long time_in_ms, t_rules *rules)
 	long long	start;
 
 	start = get_timestamp();
-	while (!(rules->died))
+	while (1)
 	{
+		pthread_mutex_lock(&(rules->death_lock));
+		if (rules->died)
+		{
+			pthread_mutex_unlock(&(rules->death_lock));
+			break ;
+		}
+		pthread_mutex_unlock(&(rules->death_lock));
 		if (get_timestamp() - start >= time_in_ms)
 			break ;
-		// usleep(10);
+	}
+	// if (rules->time_to_die - (rules->time_to_eat * 2) > 0)
+	// {
+	// 	while (1)
+	// 	{
+	// 		if (get_timestamp() - start >= rules->time_to_die - \
+	// 			(rules->time_to_eat * 2))
+	// 			break ;
+	// 	}
+	// }
+}
+
+void	eating_sleep(long long time_in_ms, t_rules *rules)
+{
+	long long	start;
+
+	start = get_timestamp();
+	while (1)
+	{
+		pthread_mutex_lock(&(rules->death_lock));
+		if (rules->died)
+		{
+			pthread_mutex_unlock(&(rules->death_lock));
+			break ;
+		}
+		pthread_mutex_unlock(&(rules->death_lock));
+		if (get_timestamp() - start >= time_in_ms)
+			break ;
 	}
 }
