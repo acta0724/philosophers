@@ -6,7 +6,7 @@
 /*   By: iwasakatsuya <iwasakatsuya@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 00:10:18 by iwasakatsuy       #+#    #+#             */
-/*   Updated: 2025/04/18 08:50:14 by iwasakatsuy      ###   ########.fr       */
+/*   Updated: 2025/04/18 09:28:04 by iwasakatsuy      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	*monitor_death(void *arg)
 	philos = (t_philo *)arg;
 	rules = philos[0].rules;
 	while (get_timestamp() < rules->start_time)
-		usleep(1);
+		usleep(3);
 	usleep(rules->time_to_eat);
 	while (!rules->died)
 	{
@@ -51,7 +51,9 @@ static void	*monitor_death(void *arg)
 				pthread_mutex_lock(&(rules->finish_lock));
 				if (philos[i].finished == 0)
 				{
+					pthread_mutex_lock(&(rules->death_lock));
 					rules->died = 1;
+					pthread_mutex_unlock(&(rules->death_lock));
 					pthread_mutex_lock(&(rules->print_lock));
 					printf("%lld %d died\n", \
 						get_timestamp() - rules->start_time, philos[i].id);
@@ -59,7 +61,6 @@ static void	*monitor_death(void *arg)
 					pthread_mutex_unlock(&(rules->finish_lock));
 					pthread_mutex_unlock(&(rules->last_eat_lock));
 					return (NULL);
-					// break ;
 				}
 				pthread_mutex_unlock(&(rules->finish_lock));
 			}
@@ -83,7 +84,7 @@ static void	*monitor_death(void *arg)
 			if (finish == rules->num_philo)
 			{
 				pthread_mutex_lock(&(rules->print_lock));
-				rules->died = 1;
+				rules->died = 2;
 				printf("All philosophers have eaten enough.\n");
 				pthread_mutex_unlock(&(rules->print_lock));
 				break ;
@@ -97,6 +98,7 @@ int	create_threads(t_rules *rules, t_philo *philos)
 {
 	pthread_t	death_thread;
 	int			i;
+	int			is_ended;
 
 	rules->start_time = get_timestamp() + (rules->num_philo * 50);
 	i = 0;
@@ -109,15 +111,29 @@ int	create_threads(t_rules *rules, t_philo *philos)
 	}
 	if (pthread_create(&death_thread, NULL, monitor_death, philos) != 0)
 		return (1);
-	i = 0;
-	while (i < rules->num_philo)
-	{
-		if (pthread_join(philos[i].thread_id, NULL) != 0)
-			return (1);
-		i++;
-	}
 	if (pthread_join(death_thread, NULL) != 0)
 		return (1);
+	pthread_mutex_lock(&(rules->death_lock));
+	is_ended = rules->died;
+	pthread_mutex_unlock(&(rules->death_lock));
+	i = 0;
+	if (is_ended == 1)
+	{
+		while (i < rules->num_philo)
+		{
+			pthread_detach(philos[i].thread_id);
+			i++;
+		}
+	}
+	else
+	{
+		while (i < rules->num_philo)
+		{
+			if (pthread_join(philos[i].thread_id, NULL) != 0)
+				return (1);
+			i++;
+		}
+	}
 	return (0);
 }
 

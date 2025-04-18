@@ -6,7 +6,7 @@
 /*   By: iwasakatsuya <iwasakatsuya@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 00:07:42 by iwasakatsuy       #+#    #+#             */
-/*   Updated: 2025/04/18 08:03:52 by iwasakatsuy      ###   ########.fr       */
+/*   Updated: 2025/04/18 08:57:04 by iwasakatsuy      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ int	init_all(int argc, char **argv, t_rules *rules, t_philo **philos)
 		i++;
 	}
 	rules->start_time = 0;
-	// rules->start_time = get_timestamp();
 	return (0);
 }
 
@@ -134,15 +133,6 @@ void	smart_sleep(long long time_in_ms, t_rules *rules)
 		if (get_timestamp() - start >= time_in_ms)
 			break ;
 	}
-	// if (rules->time_to_die - (rules->time_to_eat * 2) > 0)
-	// {
-	// 	while (1)
-	// 	{
-	// 		if (get_timestamp() - start >= rules->time_to_die - \
-	// 			(rules->time_to_eat * 2))
-	// 			break ;
-	// 	}
-	// }
 }
 
 void	eating_sleep(long long time_in_ms, t_rules *rules)

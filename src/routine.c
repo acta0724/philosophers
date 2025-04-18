@@ -6,7 +6,7 @@
 /*   By: iwasakatsuya <iwasakatsuya@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 00:09:35 by iwasakatsuy       #+#    #+#             */
-/*   Updated: 2025/04/18 08:18:31 by iwasakatsuy      ###   ########.fr       */
+/*   Updated: 2025/04/18 08:57:30 by iwasakatsuy      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	*philo_routine(void *arg)
 	philo = (t_philo *)arg;
 	rules = philo->rules;
 	while (get_timestamp() < rules->start_time)
-		usleep(1);
+		usleep(3);
 	rules->start_time = get_timestamp();
 	pthread_mutex_lock(&(rules->last_eat_lock));
 	philo->last_eat_time = get_timestamp();
