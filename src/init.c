@@ -6,7 +6,7 @@
 /*   By: iwasakatsuya <iwasakatsuya@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 00:07:42 by iwasakatsuy       #+#    #+#             */
-/*   Updated: 2025/04/18 18:40:00 by iwasakatsuy      ###   ########.fr       */
+/*   Updated: 2025/04/18 19:03:40 by iwasakatsuy      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,8 @@
 
 static int	parse_args(int argc, char **argv, t_rules *rules)
 {
-	int	i;
-	int	j;
-
-	i = 1;
-	while (i < argc)
-	{
-		j = 0;
-		while (argv[i][j])
-		{
-			if (argv[i][j] < '0' || argv[i][j] > '9')
-				return (1);
-			j++;
-		}
-		i++;
-	}
+	if (args_isdigit(argv))
+		return (1);
 	rules->num_philo = ft_atoi(argv[1]);
 	rules->time_to_die = ft_atoi(argv[2]);
 	rules->time_to_eat = ft_atoi(argv[3]);
@@ -43,10 +30,50 @@ static int	parse_args(int argc, char **argv, t_rules *rules)
 	return (0);
 }
 
-int	init_all(int argc, char **argv, t_rules *rules, t_philo **philos)
+static int	init_mutex(t_rules *rules)
 {
 	int	i;
 
+	i = 0;
+	while (i < rules->num_philo)
+	{
+		if (pthread_mutex_init(&(rules->forks[i]), NULL) != 0)
+			return (1);
+		i++;
+	}
+	if (pthread_mutex_init(&(rules->print_lock), NULL) != 0)
+		return (1);
+	if (pthread_mutex_init(&(rules->finish_lock), NULL) != 0)
+		return (1);
+	if (pthread_mutex_init(&(rules->death_lock), NULL) != 0)
+		return (1);
+	if (pthread_mutex_init(&(rules->last_eat_lock), NULL) != 0)
+		return (1);
+	if (pthread_mutex_init(&(rules->eat_count_lock), NULL) != 0)
+		return (1);
+	return (0);
+}
+
+static void	init_philos(t_philo *philos, t_rules *rules)
+{
+	int	i;
+
+	i = 0;
+	while (i < rules->num_philo)
+	{
+		philos[i].id = i + 1;
+		philos[i].eat_count = 0;
+		philos[i].last_eat_time = 0;
+		philos[i].rules = rules;
+		philos[i].finished = 0;
+		philos[i].left_fork = i;
+		philos[i].right_fork = (i + 1) % rules->num_philo;
+		i++;
+	}
+}
+
+int	init_all(int argc, char **argv, t_rules *rules, t_philo **philos)
+{
 	if (parse_args(argc, argv, rules))
 	{
 		printf("Error in arguments.\n");
@@ -56,32 +83,14 @@ int	init_all(int argc, char **argv, t_rules *rules, t_philo **philos)
 	rules->forks = malloc(sizeof(pthread_mutex_t) * rules->num_philo);
 	if (!rules->forks)
 		return ((1));
-	i = 0;
-	while (i < rules->num_philo)
+	if (init_mutex(rules))
 	{
-		pthread_mutex_init(&(rules->forks[i]), NULL);
-		i++;
+		free(rules->forks);
+		return (1);
 	}
-	pthread_mutex_init(&(rules->print_lock), NULL);
-	pthread_mutex_init(&(rules->finish_lock), NULL);
-	pthread_mutex_init(&(rules->death_lock), NULL);
-	pthread_mutex_init(&(rules->last_eat_lock), NULL);
-	pthread_mutex_init(&(rules->eat_count_lock), NULL);
 	*philos = malloc(sizeof(t_philo) * rules->num_philo);
 	if (!(*philos))
 		return (1);
-	i = 0;
-	while (i < rules->num_philo)
-	{
-		(*philos)[i].id = i + 1;
-		(*philos)[i].eat_count = 0;
-		(*philos)[i].last_eat_time = 0;
-		(*philos)[i].rules = rules;
-		(*philos)[i].finished = 0;
-		(*philos)[i].left_fork = i;
-		(*philos)[i].right_fork = (i + 1) % rules->num_philo;
-		i++;
-	}
-	rules->start_time = 0;
+	init_philos(*philos, rules);
 	return (0);
 }
