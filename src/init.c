@@ -6,33 +6,11 @@
 /*   By: iwasakatsuya <iwasakatsuya@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 00:07:42 by iwasakatsuy       #+#    #+#             */
-/*   Updated: 2025/04/18 08:57:04 by iwasakatsuy      ###   ########.fr       */
+/*   Updated: 2025/04/18 18:40:00 by iwasakatsuy      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
-
-static int	ft_atoi(const char *str)
-{
-	long	num;
-	int		sign;
-	int		i;
-
-	num = 0;
-	sign = 1;
-	i = 0;
-	while ((str[i] == ' ') || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
-			sign *= -1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-		num = num * 10 + (str[i++] - '0');
-	return ((int)(num * sign));
-}
 
 static int	parse_args(int argc, char **argv, t_rules *rules)
 {
@@ -106,50 +84,4 @@ int	init_all(int argc, char **argv, t_rules *rules, t_philo **philos)
 	}
 	rules->start_time = 0;
 	return (0);
-}
-
-long long	get_timestamp(void)
-{
-	struct timeval	tv;
-
-	gettimeofday(&tv, NULL);
-	return ((long long)(tv.tv_sec * 1000 + tv.tv_usec / 1000));
-}
-
-void	smart_sleep(long long time_in_ms, t_rules *rules)
-{
-	long long	start;
-
-	start = get_timestamp();
-	while (1)
-	{
-		pthread_mutex_lock(&(rules->death_lock));
-		if (rules->died)
-		{
-			pthread_mutex_unlock(&(rules->death_lock));
-			break ;
-		}
-		pthread_mutex_unlock(&(rules->death_lock));
-		if (get_timestamp() - start >= time_in_ms)
-			break ;
-	}
-}
-
-void	eating_sleep(long long time_in_ms, t_rules *rules)
-{
-	long long	start;
-
-	start = get_timestamp();
-	while (1)
-	{
-		pthread_mutex_lock(&(rules->death_lock));
-		if (rules->died)
-		{
-			pthread_mutex_unlock(&(rules->death_lock));
-			break ;
-		}
-		pthread_mutex_unlock(&(rules->death_lock));
-		if (get_timestamp() - start >= time_in_ms)
-			break ;
-	}
 }

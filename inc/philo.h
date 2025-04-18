@@ -6,7 +6,7 @@
 /*   By: iwasakatsuya <iwasakatsuya@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 23:27:03 by kiwasa            #+#    #+#             */
-/*   Updated: 2025/04/18 06:14:13 by iwasakatsuy      ###   ########.fr       */
+/*   Updated: 2025/04/18 18:44:13 by iwasakatsuy      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <pthread.h>
 # include <sys/time.h>
+# include <limits.h>
 
 typedef struct s_rules
 {
@@ -48,13 +49,35 @@ typedef struct s_philo
 	pthread_t		thread_id;
 }				t_philo;
 
+// --- libft.c ---
+int			ft_atoi(const char *str);
+
+// --- eat.c ---
+void		take_forks(t_philo *philo);
+void		eat(t_philo *philo);
+
+// --- sleep.c ---
+void		philo_sleep(t_philo *philo);
+void		start_sleep(long long time_in_ms, t_rules *rules);
+void		smart_sleep(long long time_in_ms, t_rules *rules);
+
+// --- routine.c ---
+void		*philo_routine(void *arg);
+
+// --- think.c ---
+void		think(t_philo *philo);
+
+// --- monitor_death.c ---
+void		*monitor_death(void *arg);
+
+// --- init.c ---
 int			init_all(int argc, char **argv, t_rules *rules, t_philo **philos);
 long long	get_timestamp(void);
-void		eating_sleep(long long time_in_ms, t_rules *rules);
 void		smart_sleep(long long time_in_ms, t_rules *rules);
-void		*philo_routine(void *arg);
 void		print_action(t_rules *rules, int id, char *msg);
 int			create_threads(t_rules *rules, t_philo *philos);
+
+// --- destroy_all.c ---
 int			destroy_all(t_rules *rules, t_philo *philos);
 
 #endif
