@@ -6,7 +6,7 @@
 /*   By: iwasakatsuya <iwasakatsuya@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 00:09:35 by iwasakatsuy       #+#    #+#             */
-/*   Updated: 2025/04/18 19:23:38 by iwasakatsuy      ###   ########.fr       */
+/*   Updated: 2025/04/18 20:17:58 by iwasakatsuy      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,18 @@ void	*philo_routine(void *arg)
 
 	philo = (t_philo *)arg;
 	rules = philo->rules;
-	// while (get_timestamp() < rules->start_time)
-	// 	usleep(3);
-	// rules->start_time = get_timestamp();
 	pthread_mutex_lock(&(rules->last_eat_lock));
 	philo->last_eat_time = get_timestamp();
 	pthread_mutex_unlock(&(rules->last_eat_lock));
-	if (philo->id % 2 == 0)
-		start_sleep(rules->time_to_eat, rules);
+	// if (philo->id % 2 == 0)
+	// 	start_sleep(rules->time_to_eat, rules);
 	while (1)
 	{
 		pthread_mutex_lock(&(rules->death_lock));
 		if (rules->died)
 		{
 			pthread_mutex_unlock(&(rules->death_lock));
-			break ;
+			return (NULL);
 		}
 		pthread_mutex_unlock(&(rules->death_lock));
 		eat(philo);
@@ -43,7 +40,7 @@ void	*philo_routine(void *arg)
 			pthread_mutex_lock(&(rules->finish_lock));
 			philo->finished = 1;
 			pthread_mutex_unlock(&(rules->finish_lock));
-			break ;
+			return (NULL);
 		}
 		philo_sleep(philo);
 		think(philo);
