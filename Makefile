@@ -6,7 +6,7 @@
 #    By: iwasakatsuya <iwasakatsuya@student.42.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/17 00:02:10 by iwasakatsuy       #+#    #+#              #
-#    Updated: 2025/04/18 18:46:28 by iwasakatsuy      ###   ########.fr        #
+#    Updated: 2025/04/18 19:23:58 by iwasakatsuy      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRCS =	src/main.c \
 		src/sleep.c \
 		src/think.c \
 		src/monitor_death.c \
-		src/create_thread.c \
+		src/create_threads.c \
 
 OBJS = $(SRCS:.c=.o)
 CC = cc

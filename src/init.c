@@ -6,7 +6,7 @@
 /*   By: iwasakatsuya <iwasakatsuya@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 00:07:42 by iwasakatsuy       #+#    #+#             */
-/*   Updated: 2025/04/18 19:03:40 by iwasakatsuy      ###   ########.fr       */
+/*   Updated: 2025/04/18 19:25:30 by iwasakatsuy      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,6 @@ int	init_all(int argc, char **argv, t_rules *rules, t_philo **philos)
 	if (!(*philos))
 		return (1);
 	init_philos(*philos, rules);
+	rules->start_time = get_timestamp();
 	return (0);
 }

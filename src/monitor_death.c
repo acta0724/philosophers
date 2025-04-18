@@ -6,7 +6,7 @@
 /*   By: iwasakatsuya <iwasakatsuya@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 18:43:26 by iwasakatsuy       #+#    #+#             */
-/*   Updated: 2025/04/18 18:44:01 by iwasakatsuy      ###   ########.fr       */
+/*   Updated: 2025/04/18 19:33:55 by iwasakatsuy      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	*monitor_death(void *arg)
 
 	philos = (t_philo *)arg;
 	rules = philos[0].rules;
-		usleep(1);
-	rules->start_time = get_timestamp();
-	usleep(rules->time_to_eat);
+		// usleep(1);
+	// rules->start_time = get_timestamp();
+	// usleep(rules->time_to_eat);
 	while (!rules->died)
 	{
 		i = 0;
@@ -33,9 +33,11 @@ void	*monitor_death(void *arg)
 			if (get_timestamp() - philos[i].last_eat_time > \
 				rules->time_to_die)
 			{
+				pthread_mutex_unlock(&(rules->last_eat_lock));
 				pthread_mutex_lock(&(rules->finish_lock));
 				if (philos[i].finished == 0)
 				{
+					pthread_mutex_unlock(&(rules->finish_lock));
 					pthread_mutex_lock(&(rules->death_lock));
 					rules->died = 1;
 					pthread_mutex_unlock(&(rules->death_lock));
@@ -43,13 +45,13 @@ void	*monitor_death(void *arg)
 					printf("%lld %d died\n", \
 						get_timestamp() - rules->start_time, philos[i].id);
 					pthread_mutex_unlock(&(rules->print_lock));
-					pthread_mutex_unlock(&(rules->finish_lock));
-					pthread_mutex_unlock(&(rules->last_eat_lock));
 					return (NULL);
 				}
-				pthread_mutex_unlock(&(rules->finish_lock));
+				else
+					pthread_mutex_unlock(&(rules->finish_lock));
 			}
-			pthread_mutex_unlock(&(rules->last_eat_lock));
+			else
+				pthread_mutex_unlock(&(rules->last_eat_lock));
 			i++;
 		}
 		if (rules->must_eat_count > 0 && !rules->died)
