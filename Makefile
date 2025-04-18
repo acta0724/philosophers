@@ -6,7 +6,7 @@
 #    By: kiwasa <kiwasa@student.42.jp>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/17 00:02:10 by iwasakatsuy       #+#    #+#              #
-#    Updated: 2025/04/18 22:05:25 by kiwasa           ###   ########.fr        #
+#    Updated: 2025/04/19 03:56:45 by kiwasa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ fclean: clean
 	rm -f $(NAME)
 
 h: re
-	valgrind --tool=helgrind ./$(NAME) 5 800 200 200 7
+	valgrind --tool=helgrind ./$(NAME) 4 300 200 200 7
 
 re: fclean all
 
