@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwasakatsuya <iwasakatsuya@student.42.f    +#+  +:+       +#+        */
+/*   By: kiwasa <kiwasa@student.42.jp>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 23:27:03 by kiwasa            #+#    #+#             */
-/*   Updated: 2025/04/18 18:54:52 by iwasakatsuy      ###   ########.fr       */
+/*   Updated: 2025/04/18 21:25:37 by kiwasa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ void		print_action(t_rules *rules, int id, char *msg);
 long long	get_timestamp(void);
 int			ft_isdigit(int c);
 int			args_isdigit(char **argv);
-
 
 // --- init.c ---
 int			init_all(int argc, char **argv, t_rules *rules, t_philo **philos);

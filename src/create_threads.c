@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   create_threads.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwasakatsuya <iwasakatsuya@student.42.f    +#+  +:+       +#+        */
+/*   By: kiwasa <kiwasa@student.42.jp>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 18:44:40 by iwasakatsuy       #+#    #+#             */
-/*   Updated: 2025/04/18 19:38:55 by iwasakatsuy      ###   ########.fr       */
+/*   Updated: 2025/04/18 21:25:58 by kiwasa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-static int create_thread_philo(t_philo *philos, t_rules *rules)
+static int	create_thread_philo(t_philo *philos, t_rules *rules)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < rules->num_philo)

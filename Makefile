@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: iwasakatsuya <iwasakatsuya@student.42.f    +#+  +:+       +#+         #
+#    By: kiwasa <kiwasa@student.42.jp>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/17 00:02:10 by iwasakatsuy       #+#    #+#              #
-#    Updated: 2025/04/18 19:23:58 by iwasakatsuy      ###   ########.fr        #
+#    Updated: 2025/04/18 22:05:25 by kiwasa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,4 +44,5 @@ h: re
 	valgrind --tool=helgrind ./$(NAME) 5 800 200 200 7
 
 re: fclean all
+
 .PHONY: all clean fclean re
