@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwasakatsuya <iwasakatsuya@student.42.f    +#+  +:+       +#+        */
+/*   By: kiwasa <kiwasa@student.42.jp>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 00:10:18 by iwasakatsuy       #+#    #+#             */
-/*   Updated: 2025/04/18 09:28:04 by iwasakatsuy      ###   ########.fr       */
+/*   Updated: 2025/04/18 17:56:17 by kiwasa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,14 @@ void	print_action(t_rules *rules, int id, char *msg)
 	pthread_mutex_lock(&(rules->death_lock));
 	if (!rules->died)
 	{
+		pthread_mutex_unlock(&(rules->death_lock));
 		time_ms = get_timestamp() - rules->start_time;
 		printf("%lld %d %s\n", time_ms, id, msg);
 	}
-	pthread_mutex_unlock(&(rules->death_lock));
+	else
+	{
+		pthread_mutex_unlock(&(rules->death_lock));
+	}
 	pthread_mutex_unlock(&(rules->print_lock));
 }
 
@@ -36,8 +40,8 @@ static void	*monitor_death(void *arg)
 
 	philos = (t_philo *)arg;
 	rules = philos[0].rules;
-	while (get_timestamp() < rules->start_time)
-		usleep(3);
+		usleep(1);
+	// rules->start_time = get_timestamp();
 	usleep(rules->time_to_eat);
 	while (!rules->died)
 	{
@@ -151,7 +155,7 @@ int	destroy_all(t_rules *rules, t_philo *philos)
 	pthread_mutex_destroy(&(rules->finish_lock));
 	pthread_mutex_destroy(&(rules->death_lock));
 	pthread_mutex_destroy(&(rules->last_eat_lock));
-	pthread_mutex_destroy(&(rules->eat_count_lock));	
+	pthread_mutex_destroy(&(rules->eat_count_lock));
 	free(rules->forks);
 	free(philos);
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwasakatsuya <iwasakatsuya@student.42.f    +#+  +:+       +#+        */
+/*   By: kiwasa <kiwasa@student.42.jp>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 00:09:35 by iwasakatsuy       #+#    #+#             */
-/*   Updated: 2025/04/18 08:57:30 by iwasakatsuy      ###   ########.fr       */
+/*   Updated: 2025/04/18 17:22:36 by kiwasa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ static void	think(t_philo *philo)
 
 	start = get_timestamp();
 	print_action(philo->rules, philo->id, "is thinking");
-	if (philo->rules->time_to_die - (philo->rules->time_to_eat * 2) - (philo->rules->time_to_sleep) > 0)
+	if (philo->rules->time_to_die - (philo->rules->time_to_eat * 2) - \
+			(philo->rules->time_to_sleep) > 0)
 	{
 		while (1)
 		{
@@ -92,7 +93,7 @@ void	*philo_routine(void *arg)
 	rules = philo->rules;
 	while (get_timestamp() < rules->start_time)
 		usleep(3);
-	rules->start_time = get_timestamp();
+	// rules->start_time = get_timestamp();
 	pthread_mutex_lock(&(rules->last_eat_lock));
 	philo->last_eat_time = get_timestamp();
 	pthread_mutex_unlock(&(rules->last_eat_lock));
