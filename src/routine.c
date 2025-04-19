@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwasakatsuya <iwasakatsuya@student.42.f    +#+  +:+       +#+        */
+/*   By: kiwasa <kiwasa@student.42.jp>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 00:09:35 by iwasakatsuy       #+#    #+#             */
-/*   Updated: 2025/04/19 18:51:46 by iwasakatsuy      ###   ########.fr       */
+/*   Updated: 2025/04/19 18:59:13 by kiwasa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	*philo_routine(void *arg)
 			return (NULL);
 		}
 		pthread_mutex_unlock(&(rules->death_lock));
-		if(eat(philo))
+		if (eat(philo))
 			return (NULL);
 		if (rules->must_eat_count > 0 && \
 			philo->eat_count >= rules->must_eat_count)

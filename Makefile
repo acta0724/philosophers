@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: iwasakatsuya <iwasakatsuya@student.42.f    +#+  +:+       +#+         #
+#    By: kiwasa <kiwasa@student.42.jp>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/17 00:02:10 by iwasakatsuy       #+#    #+#              #
-#    Updated: 2025/04/19 18:51:58 by iwasakatsuy      ###   ########.fr        #
+#    Updated: 2025/04/19 19:03:51 by kiwasa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,13 +41,13 @@ fclean: clean
 	rm -f $(NAME)
 
 h: re
-	valgrind --tool=helgrind ./$(NAME) 4 300 200 200 7
+	valgrind --tool=helgrind ./$(NAME) 5 800 200 200 3
 
 p: $(NAME)
 	./$(NAME) 1 800 200 200
 
 test: $(NAME)
-	./$(NAME) 5 800 200 200 7
+	./$(NAME) 30 2000 200 200 3
 
 re: fclean all
 

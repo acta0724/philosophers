@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   eat.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwasakatsuya <iwasakatsuya@student.42.f    +#+  +:+       +#+        */
+/*   By: kiwasa <kiwasa@student.42.jp>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 18:34:57 by iwasakatsuy       #+#    #+#             */
-/*   Updated: 2025/04/19 18:51:07 by iwasakatsuy      ###   ########.fr       */
+/*   Updated: 2025/04/19 18:55:56 by kiwasa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-static int lonely_philo(t_philo *philo)
+static int	lonely_philo(t_philo *philo)
 {
 	t_rules	*rules;
 
@@ -60,8 +60,6 @@ int	eat(t_philo *philo)
 	rules = philo->rules;
 	if (take_forks(philo))
 		return (1);
-	// take_forks(philo);
-	// pthread_mutex_lock(&(rules->death_lock));
 	pthread_mutex_lock(&(rules->last_eat_lock));
 	philo->last_eat_time = get_timestamp();
 	pthread_mutex_unlock(&(rules->last_eat_lock));
