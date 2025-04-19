@@ -6,7 +6,7 @@
 /*   By: kiwasa <kiwasa@student.42.jp>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 18:43:26 by iwasakatsuy       #+#    #+#             */
-/*   Updated: 2025/04/18 22:04:27 by kiwasa           ###   ########.fr       */
+/*   Updated: 2025/04/19 19:17:05 by kiwasa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	*monitor_death(void *arg)
 	{
 		if (check_death(philos, rules))
 			return (NULL);
-		if (check_dinner_finish(philos, rules))
+		if (rules->must_eat_count != -1 && check_dinner_finish(philos, rules))
 			return (NULL);
 	}
 	return (NULL);
