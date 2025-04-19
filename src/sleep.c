@@ -6,7 +6,7 @@
 /*   By: iwasakatsuya <iwasakatsuya@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 18:36:50 by iwasakatsuy       #+#    #+#             */
-/*   Updated: 2025/04/18 18:38:49 by iwasakatsuy      ###   ########.fr       */
+/*   Updated: 2025/04/19 18:42:58 by iwasakatsuy      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	smart_sleep(long long time_in_ms, t_rules *rules)
 	while (1)
 	{
 		pthread_mutex_lock(&(rules->death_lock));
-		if (rules->died)
+		if (rules->died && rules->num_philo != 1)
 		{
 			pthread_mutex_unlock(&(rules->death_lock));
 			break ;

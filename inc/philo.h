@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kiwasa <kiwasa@student.42.jp>              +#+  +:+       +#+        */
+/*   By: iwasakatsuya <iwasakatsuya@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 23:27:03 by kiwasa            #+#    #+#             */
-/*   Updated: 2025/04/18 21:25:37 by kiwasa           ###   ########.fr       */
+/*   Updated: 2025/04/19 18:27:55 by iwasakatsuy      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ typedef struct s_philo
 int			ft_atoi(const char *str);
 
 // --- eat.c ---
-void		take_forks(t_philo *philo);
-void		eat(t_philo *philo);
+int		take_forks(t_philo *philo);
+int		eat(t_philo *philo);
 
 // --- sleep.c ---
 void		philo_sleep(t_philo *philo);

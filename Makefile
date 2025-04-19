@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kiwasa <kiwasa@student.42.jp>              +#+  +:+       +#+         #
+#    By: iwasakatsuya <iwasakatsuya@student.42.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/17 00:02:10 by iwasakatsuy       #+#    #+#              #
-#    Updated: 2025/04/19 04:29:01 by kiwasa           ###   ########.fr        #
+#    Updated: 2025/04/19 18:51:58 by iwasakatsuy      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ p: $(NAME)
 	./$(NAME) 1 800 200 200
 
 test: $(NAME)
-	./$(NAME) 1 800 200 200
+	./$(NAME) 5 800 200 200 7
 
 re: fclean all
 
