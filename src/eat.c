@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   eat.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwasakatsuya <iwasakatsuya@student.42.f    +#+  +:+       +#+        */
+/*   By: kiwasa <kiwasa@student.42.jp>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 18:34:57 by iwasakatsuy       #+#    #+#             */
-/*   Updated: 2025/04/19 21:45:53 by iwasakatsuy      ###   ########.fr       */
+/*   Updated: 2025/04/19 22:07:54 by kiwasa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static int	lonely_philo(t_philo *philo)
 
 	rules = philo->rules;
 	print_action(rules, philo->id, "has taken a fork");
-	// smart_sleep(rules->time_to_die, rules);
 	usleep(rules->time_to_die * 1000);
 	pthread_mutex_lock(&(rules->print_lock));
 	pthread_mutex_lock(&(rules->death_lock));
@@ -65,7 +64,6 @@ int	eat(t_philo *philo)
 	philo->last_eat_time = get_timestamp();
 	pthread_mutex_unlock(&(rules->last_eat_lock));
 	print_action(rules, philo->id, "is eating");
-	// smart_sleep(rules->time_to_eat, rules);
 	usleep(rules->time_to_eat * 1000);
 	pthread_mutex_lock(&(rules->eat_count_lock));
 	philo->eat_count++;
