@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kiwasa <kiwasa@student.42.jp>              +#+  +:+       +#+        */
+/*   By: iwasakatsuya <iwasakatsuya@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 00:09:35 by iwasakatsuy       #+#    #+#             */
-/*   Updated: 2025/04/19 19:21:46 by kiwasa           ###   ########.fr       */
+/*   Updated: 2025/04/19 21:49:06 by iwasakatsuy      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void	*philo_routine(void *arg)
 	pthread_mutex_lock(&(rules->last_eat_lock));
 	philo->last_eat_time = get_timestamp();
 	pthread_mutex_unlock(&(rules->last_eat_lock));
-	if (philo->id % 2 == 0)
-		start_sleep(rules->time_to_eat, rules);
+	// if (philo->id % 2 == 0)
+	// 	start_sleep(rules->time_to_eat, rules);
 	while (1)
 	{
 		if (philo_actions(philo))

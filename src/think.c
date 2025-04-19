@@ -6,7 +6,7 @@
 /*   By: iwasakatsuya <iwasakatsuya@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 18:41:44 by iwasakatsuy       #+#    #+#             */
-/*   Updated: 2025/04/18 18:42:09 by iwasakatsuy      ###   ########.fr       */
+/*   Updated: 2025/04/19 21:54:38 by iwasakatsuy      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,13 @@
 
 void	think(t_philo *philo)
 {
-	long long	start;
+	long long	think_time;
 
-	start = get_timestamp();
+	think_time = philo->rules->time_to_die - (philo->rules->time_to_eat * 2) - \
+		(philo->rules->time_to_sleep);
 	print_action(philo->rules, philo->id, "is thinking");
-	if (philo->rules->time_to_die - (philo->rules->time_to_eat * 2) - \
-			(philo->rules->time_to_sleep) > 0)
+	if (think_time > 0)
 	{
-		while (1)
-		{
-			if (get_timestamp() - start >= philo->rules->time_to_die - \
-				(philo->rules->time_to_eat * 2) - (philo->rules->time_to_sleep))
-				break ;
-		}
+		usleep(think_time * 1000);
 	}
 }
