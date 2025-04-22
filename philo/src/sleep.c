@@ -6,7 +6,7 @@
 /*   By: kiwasa <kiwasa@student.42.jp>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 18:36:50 by iwasakatsuy       #+#    #+#             */
-/*   Updated: 2025/04/23 00:41:28 by kiwasa           ###   ########.fr       */
+/*   Updated: 2025/04/23 01:53:24 by kiwasa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,8 @@ void	start_sleep(long long time_in_ms, t_rules *rules)
 void	smart_sleep(long long time_in_ms, t_rules *rules)
 {
 	long long	start;
-	int			i;
 
 	start = get_timestamp();
-	i = 0;
 	while (1)
 	{
 		pthread_mutex_lock(&(rules->death_lock));

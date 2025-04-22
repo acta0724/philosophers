@@ -6,7 +6,7 @@
 /*   By: kiwasa <kiwasa@student.42.jp>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 18:41:44 by iwasakatsuy       #+#    #+#             */
-/*   Updated: 2025/04/23 00:41:45 by kiwasa           ###   ########.fr       */
+/*   Updated: 2025/04/23 01:56:38 by kiwasa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ void	think(t_philo *philo)
 	{
 		while (1)
 		{
-			if (get_timestamp() - start >= philo->rules->time_to_die - \
+			if (get_timestamp() - start < philo->rules->time_to_die - \
 				(philo->rules->time_to_eat * 2) - (philo->rules->time_to_sleep))
 			{
-				break ;
+				usleep(100);
 			}
 			else
 			{
-				usleep(100);
+				break;
 			}
 		}
 	}

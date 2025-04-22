@@ -6,7 +6,7 @@
 /*   By: kiwasa <kiwasa@student.42.jp>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 18:34:57 by iwasakatsuy       #+#    #+#             */
-/*   Updated: 2025/04/22 00:35:03 by kiwasa           ###   ########.fr       */
+/*   Updated: 2025/04/23 01:55:02 by kiwasa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,7 @@ static int	lonely_philo(t_philo *philo)
 
 	rules = philo->rules;
 	print_action(rules, philo->id, "has taken a fork");
-	usleep(rules->time_to_die * 1000);
-	// pthread_mutex_lock(&(rules->print_lock));
-	// pthread_mutex_lock(&(rules->death_lock));
-	// rules->died = 1;
-	// pthread_mutex_unlock(&(rules->death_lock));
-	// printf("%lld %d died\n", \
-	// 	get_timestamp() - rules->start_time, philo->id);
-	// pthread_mutex_unlock(&(rules->print_lock));
+	smart_sleep(rules->time_to_die, rules);
 	return (1);
 }
 
@@ -64,7 +57,7 @@ int	eat(t_philo *philo)
 	philo->last_eat_time = get_timestamp();
 	pthread_mutex_unlock(&(rules->last_eat_lock));
 	print_action(rules, philo->id, "is eating");
-	usleep(rules->time_to_eat * 1000);
+	smart_sleep(rules->time_to_eat, rules);
 	pthread_mutex_lock(&(rules->eat_count_lock));
 	philo->eat_count++;
 	pthread_mutex_unlock(&(rules->eat_count_lock));
