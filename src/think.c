@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   think.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iwasakatsuya <iwasakatsuya@student.42.f    +#+  +:+       +#+        */
+/*   By: kiwasa <kiwasa@student.42.jp>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 18:41:44 by iwasakatsuy       #+#    #+#             */
-/*   Updated: 2025/04/19 21:54:38 by iwasakatsuy      ###   ########.fr       */
+/*   Updated: 2025/04/23 00:41:45 by kiwasa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,24 @@
 
 void	think(t_philo *philo)
 {
-	long long	think_time;
+	long long	start;
 
-	think_time = philo->rules->time_to_die - (philo->rules->time_to_eat * 2) - \
-		(philo->rules->time_to_sleep);
+	start = get_timestamp();
 	print_action(philo->rules, philo->id, "is thinking");
-	if (think_time > 0)
+	if (philo->rules->time_to_die - (philo->rules->time_to_eat * 2) - \
+			(philo->rules->time_to_sleep) > 0)
 	{
-		usleep(think_time * 1000);
+		while (1)
+		{
+			if (get_timestamp() - start >= philo->rules->time_to_die - \
+				(philo->rules->time_to_eat * 2) - (philo->rules->time_to_sleep))
+			{
+				break ;
+			}
+			else
+			{
+				usleep(100);
+			}
+		}
 	}
 }
