@@ -6,7 +6,7 @@
 /*   By: kiwasa <kiwasa@student.42.jp>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 00:07:42 by iwasakatsuy       #+#    #+#             */
-/*   Updated: 2025/04/23 01:55:11 by kiwasa           ###   ########.fr       */
+/*   Updated: 2025/04/23 21:46:31 by kiwasa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	init_philos(t_philo *philos, t_rules *rules)
 	{
 		philos[i].id = i + 1;
 		philos[i].eat_count = 0;
-		philos[i].last_eat_time = get_timestamp();
+		philos[i].last_eat_time = rules->start_time;
 		philos[i].rules = rules;
 		philos[i].finished = 0;
 		philos[i].left_fork = i;
@@ -91,7 +91,10 @@ int	init_all(int argc, char **argv, t_rules *rules, t_philo **philos)
 	*philos = malloc(sizeof(t_philo) * rules->num_philo);
 	if (!(*philos))
 		return (1);
-	init_philos(*philos, rules);
 	rules->start_time = get_timestamp();
+	printf("start_time : %lld\n", rules->start_time);
+	rules->start_time = get_timestamp() + (rules->num_philo * 10);
+	printf("start_time : %lld\n", rules->start_time);
+	init_philos(*philos, rules);
 	return (0);
 }

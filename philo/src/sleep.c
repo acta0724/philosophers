@@ -6,7 +6,7 @@
 /*   By: kiwasa <kiwasa@student.42.jp>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 18:36:50 by iwasakatsuy       #+#    #+#             */
-/*   Updated: 2025/04/23 01:53:24 by kiwasa           ###   ########.fr       */
+/*   Updated: 2025/04/23 21:47:15 by kiwasa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	philo_sleep(t_philo *philo)
 {
 	print_action(philo->rules, philo->id, "is sleeping");
-	usleep(philo->rules->time_to_sleep * 1000);
+	smart_sleep(philo->rules->time_to_sleep, philo->rules);
 }
 
 void	start_sleep(long long time_in_ms, t_rules *rules)
@@ -47,7 +47,7 @@ void	smart_sleep(long long time_in_ms, t_rules *rules)
 			break ;
 		}
 		pthread_mutex_unlock(&(rules->death_lock));
-		if (get_timestamp() - start >= time_in_ms)
+		if (get_timestamp() - start > time_in_ms)
 		{
 			break ;
 		}

@@ -6,7 +6,7 @@
 /*   By: kiwasa <kiwasa@student.42.jp>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 00:09:35 by iwasakatsuy       #+#    #+#             */
-/*   Updated: 2025/04/19 22:07:59 by kiwasa           ###   ########.fr       */
+/*   Updated: 2025/04/23 21:46:48 by kiwasa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,10 @@ void	*philo_routine(void *arg)
 
 	philo = (t_philo *)arg;
 	rules = philo->rules;
-	pthread_mutex_lock(&(rules->last_eat_lock));
-	philo->last_eat_time = get_timestamp();
-	pthread_mutex_unlock(&(rules->last_eat_lock));
+	smart_sleep(rules->start_time - get_timestamp(), rules);
 	if (philo->id % 2 == 0)
 	{
-		usleep(rules->time_to_eat);
+		start_sleep(rules->time_to_eat, rules);
 	}
 	while (1)
 	{

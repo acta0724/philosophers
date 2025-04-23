@@ -6,7 +6,7 @@
 /*   By: kiwasa <kiwasa@student.42.jp>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 18:43:26 by iwasakatsuy       #+#    #+#             */
-/*   Updated: 2025/04/19 19:17:05 by kiwasa           ###   ########.fr       */
+/*   Updated: 2025/04/23 21:42:29 by kiwasa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int	check_death(t_philo *philos, t_rules *rules)
 	while (i < rules->num_philo && !rules->died)
 	{
 		pthread_mutex_lock(&(rules->last_eat_lock));
-		if (get_timestamp() - philos[i].last_eat_time > rules->time_to_die)
+		if (get_timestamp() - philos[i].last_eat_time >= rules->time_to_die)
 		{
 			pthread_mutex_unlock(&(rules->last_eat_lock));
 			if (solemn_judgment(philos, rules, i))
@@ -75,8 +75,7 @@ static int	check_death(t_philo *philos, t_rules *rules)
 				return (1);
 			}
 		}
-		else
-			pthread_mutex_unlock(&(rules->last_eat_lock));
+		pthread_mutex_unlock(&(rules->last_eat_lock));
 		i++;
 	}
 	return (0);
@@ -89,6 +88,7 @@ void	*monitor_death(void *arg)
 
 	philos = (t_philo *)arg;
 	rules = philos[0].rules;
+	smart_sleep(rules->start_time - get_timestamp(), rules);
 	while (!rules->died)
 	{
 		if (check_death(philos, rules))
