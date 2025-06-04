@@ -1,7 +1,3 @@
-# philo (Philosophers)
-
----
-
 ## プロジェクト概要
 
 `philo` は、ダイニング・フィロソファー問題 (Dining Philosophers Problem) を C 言語と POSIX スレッド（`pthread`）、ミューテックスを用いて実装した 42 課題プロジェクトです。
