@@ -1,8 +1,5 @@
 # philo (Philosophers)
 
-> **I never thought philosophy would be so deadly**
-> 42 Tokyo – 学習プロジェクト
-
 ---
 
 ## プロジェクト概要
